@@ -1,4 +1,4 @@
-const {Sequelize, DataTypes, Model}=require('sequelize')
+const {Sequelize, DataTypes}=require('sequelize')
 
 const sequelize=new Sequelize('postgresql://localhost/Video-Streaming-Platform?user=postgres&password=Kalambur0708',{dialect: "postgres"})
 
