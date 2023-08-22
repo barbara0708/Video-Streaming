@@ -16,6 +16,6 @@ db.sequelize.sync({force:true}).then(()=>{
     console.log('db has been re sync')
 });
 
-app.use('api/users',userRoutes)
+app.use('/api/users',userRoutes)
 
 app.listen(PORT,()=>{`Parser is available on ${PORT}`})

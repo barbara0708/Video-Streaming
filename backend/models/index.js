@@ -1,6 +1,9 @@
 const {Sequelize, DataTypes}=require('sequelize')
 
-const sequelize=new Sequelize('Video-Streaming-Platform','postgres','Kalambur0708')
+const sequelize=new Sequelize('Video-Streaming-Platform','postgres','Kalambur0708',{
+    host:'localhost',
+    dialect:'postgres'
+})
 
 sequelize.authenticate().then(()=>{
     console.log("Database is connected")
