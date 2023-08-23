@@ -5,15 +5,15 @@ const User=db.users
 const saveUser=async(res,req,next)=>{
 
     try{
-        const username=await User.FindOne({
+        const username=await User.findOne({
             where:{
-                'username':req.body.username
+                username:req.body.username
             }
         })
         if(username){
             res.json(404).send("This username already exists.")
         }
-        const emailCheck=await User.FindOne({
+        const emailCheck=await User.findOne({
             where:{
                 email:req.body.email
             }
