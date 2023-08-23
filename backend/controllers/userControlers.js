@@ -16,8 +16,6 @@ const signup=async(req,res)=>{
         if(user){
             let token=jwt.sign({id:user.id},process.env.secretKey,{expiresIn:1*60*60*24*1000})
             res.cookie('jwt',token,{maxAge:1*60*60*24,httpOnly:true})
-            console.log("user",JSON.stringify(user,null,2))
-            console.log(token)
             return res.status(201).send(user)
         
         }else{
