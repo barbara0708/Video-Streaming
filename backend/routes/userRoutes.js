@@ -7,7 +7,7 @@ const router=express.Router()
 
 router.post('/signup',userAuth.saveUser,signup)
 router.post('/login',login)
-router.get('/',(req,res)=>{
+router.get('/main',(req,res)=>{
     res.json({message:"Welcome to Video-Streaming Platform"})
 })
 

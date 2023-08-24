@@ -5,7 +5,7 @@ const cookieParser=require('cookie-parser')
 const db=require('./models')
 const userRoutes=require('./routes/userRoutes')
 
-const PORT=process.env.PORT||8080
+const PORT=8080
 const app=express()
 
 app.use(express.json())
