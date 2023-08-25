@@ -1,63 +1,89 @@
-const bcrypt=require('bcrypt')
+var bcrypt=require('bcrypt')
+const config=require('../config/auth.config')
 const db=require("../models")
-const jwt=require('jsonwebtoken')
+var jwt=require('jsonwebtoken')
+const Role=db.role
+const User=db.user
+const Op=db.Sequelize.Op
 
-const User=db.users
 
-const signup=async(req,res)=>{
-    try{
-        const {username,email,password}=req.body
-        const data={
-            username,
-            email,
-            password: await bcrypt.hash(password,10)
-        }
-        const user=await User.create(data)
-        if(user){
-            let token=jwt.sign({id:user.id},process.env.secretKey,{expiresIn:1*60*60*24*1000})
-            res.cookie('jwt',token,{maxAge:1*60*60*24,httpOnly:true})
-            return res.status(201).send(user)
-        
-        }else{
-            return res.status(409).send("Details are incorrect.") 
-        }
-    }catch(err){
-        console.log(err)
-    }
+exports.signup=(req,res)=>{
+   
+        User.create({
+            username:req.body.username,
+            email:req.body.email,
+            password:bcrypt.hash(req.body.password,10)
+        })
+        .then(user=>{
+            if(req.body.roles){
+                Role.findAll({
+                    where:{
+                        name:{
+                            [Op.or]:req.body.roles
+                        }
+                    }
+                }).then(roles=>{
+                    user.setRoles(roles).then(()=>{
+                        res.send({message:"User was registered successfully!"})
+                    });
+                });
+            }else{
+                user.setRoles([1]).then(()=>{
+                    res.send({message:"User was registered successfully!"});
+                });
+            }
+        })
+        .catch(err=>{
+            res.status(500).send({ message: err.message });
+        });
 };
 
-const login=async(req,res)=>{
-    try {
-        const {email,password}=req.body
-        const user=await User.findOne({
+exports.login=(req,res)=>{
+        User.findOne({
             where:{
-                email:email
+                email:req.body.email
             }
-        });
-
-        if(user){
-            const isSame=await bcrypt.compare(password,user.password);
-            if(isSame){
-                let token=jwt.sign({id:user.id},process.env.secretKey,{expiresIn:1*60*60*24*1000})
-                res.cookie('jwt',token,{maxAge:1*60*60*24,httpOnly:true})
-                console.log("user",JSON.stringify(user,null,2))
-                console.log(token)
-                return res.status(201).send(user)
-            
-            }else{
-                return res.status(401).send("Authentication failed.")
+        }).then(user=>{
+            if(!user){
+                return res.status(404).send({message: "User Not found."});
             }
+        
 
-        }else{
-            return res.status(401).send("Authentication failed.")
+        var passwordIsValid=bcrypt.compareSync(
+            req.body.password,
+            user.password
+        );
+        if(!passwordIsValid){
+            return res.status(401).send({
+                accessToken:null,
+                message:"Invalid Password!"
+            });
         }
-
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-module.exports={
-    signup,
-    login
+        const token=jwt.sign(
+            {id:user.id},
+            config.secret,
+            {
+                algorithm:'HS256',
+                allowInsecureKeySizes:true,
+                expiresIn:86400
+            })
+        res.cookie('jwt',token,{maxAge:1*60*60*24,httpOnly:true})
+        var authorities=[];
+        user.getRoles().then(roles=>{
+            for(let i=0;i<roles.length;i++){
+                authorities.push("ROLE_"+roles[i].name.toUpperCase());
+            }
+            res.status(200).send({
+                id:db.user.id,
+                username:user.username,
+                email:user.email,
+                roles:authorities,
+                accessToken:token
+            })
+        })
+    })
+    .catch(err=>{
+        res.status(500).send({ message: err.message });
+    })
+           
 }
