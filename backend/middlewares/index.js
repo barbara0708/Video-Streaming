@@ -1,7 +1,7 @@
-const auth=require('./userAuth')
+const authJwt=require('./userAuth')
 const verifySignUp=require('./verifySignUp')
 
 module.exports={
-    auth,
+    authJwt,
     verifySignUp
 }
