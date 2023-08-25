@@ -12,8 +12,8 @@ const app=express()
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
-app.use('/api/users',userRoutes)
-
+// app.use('/api/users',userRoutes)
+require('./routes/userRoutes')(app)
 
 db.sequelize.sync({force:true}).then(()=>{
     console.log('db has been re sync')
