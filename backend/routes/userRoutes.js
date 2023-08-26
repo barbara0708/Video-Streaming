@@ -11,15 +11,15 @@ module.exports=function(app){
         );
         next();
     });
-    app.post("/api/auth/signup",
-    [
-      verifySignUp.checkDuplicateUsernameOrEmail,
+    app.post("/api/auth/signup",function(req,res){
+        
+      verifySignUp.checkDuplicateUsernameOrEmail
       verifySignUp.checkRolesExisted  
-    ],
-    controller.signup
+      controller.signup
+    
+    }
     );
-    app.post("/api/auth/login",controller.login);
-
+    app.post("/api/auth/login",function(req,res){controller.login});
 
     app.get("/api/test/all",controller.allAccess);
     app.get("/api/test/user",[authJwt.verifyToken],
