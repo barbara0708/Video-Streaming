@@ -13,8 +13,8 @@ module.exports=function(app){
     });
     app.post("/api/auth/signup",function(req,res){
         
-      verifySignUp.checkDuplicateUsernameOrEmail
-      verifySignUp.checkRolesExisted  
+      //verifySignUp.checkDuplicateUsernameOrEmail
+      //verifySignUp.checkRolesExisted  
       controller.signup
     
     }
