@@ -4,32 +4,29 @@ const dotenv=require('dotenv').config()
 const sequelize=require('sequelize')
 const cookieParser=require('cookie-parser')
 const db=require('./models')
-const userRoutes=require('./routes/userRoutes')
+const router=require('./routes/userRoutes')
 
 const PORT=process.env.PORT||8080
 const Role=db.role
 const app=express()
 
-var corsOptions = {
-    origin: "http://localhost:8081"
-  };
+// var corsOptions = {
+//     origin: "http://localhost:8081"
+//   };
   
-app.use(cors(corsOptions));
-app.use(function(req,res,next){
-    res.header(
-        "Access-Control-Allow-Headers",
-        "x-access-token, Origin, Content-Type, Accept"
-    );
-    next();
-});
+// app.use(cors(corsOptions));
+// app.use(function(req,res,next){
+//     res.header(
+//         "Access-Control-Allow-Headers",
+//         "x-access-token, Origin, Content-Type, Accept"
+//     );
+//     next();
+// });
 //app.use(express.urlencoded({extended:true}))
 //app.use(cookieParser())
 // app.use('/api/users',userRoutes)
 
-app.get("/",(req,res)=>{
-    res.json({message:"Welcome to the Video Streaming platform"})
-})
-require('./routes/userRoutes')(app)
+app.use("/",router)
 
 db.sequelize.sync({force:true}).then(()=>{
     console.log('db has been re sync')

@@ -1,11 +1,10 @@
 const {verifySignUp}=require("../middlewares/index")
 const {authJwt}=require("../middlewares/index");
 const controller=require("../controllers/authControllers");
+const router=require("express").Router()
 
 
-module.exports=function(app){
-    
-    app.post("/api/auth/signup",function(req,res){
+    router.post("/api/auth/signup",function(req,res){
         
       //verifySignUp.checkDuplicateUsernameOrEmail
       //verifySignUp.checkRolesExisted  
@@ -13,20 +12,20 @@ module.exports=function(app){
     
     }
     );
-    app.post("/api/auth/login",function(req,res){controller.login});
+    router.post("/api/auth/login",function(req,res){controller.login});
 
-    app.get("/api/test/all",controller.allAccess);
-    app.get("/api/test/user",[authJwt.verifyToken],
+    router.get("/api/test/all",controller.allAccess);
+    router.get("/api/test/user",[authJwt.verifyToken],
     controller.userBoard
     );
-    app.get(
+    router.get(
         "api/test/mod",
         [authJwt.verifyToken,authJwt.isModerator],
         controller.moderatorBoard
     );
-    app.get(
+    router.get(
         "api/test/admin",
         [authJwt.verifyToken,authJwt.isAdmin],
         controller.adminBoard
     );
-};
+module.exports=router;
