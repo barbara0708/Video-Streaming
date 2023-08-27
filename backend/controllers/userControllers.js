@@ -1,42 +1,42 @@
-var bcrypt=require('bcrypt')
 const config=require('../config/auth.config')
 const db=require("../models")
-var jwt=require('jsonwebtoken')
-const Role=db.role
-const User=db.user
-const Op=db.Sequelize.Op
+const User = db.user;
+const Role = db.role;
+const Op = db.Sequelize.Op;
 
+var jwt = require("jsonwebtoken");
+var bcrypt = require("bcryptjs");
 
-exports.signup=(req,res)=>{
-   
-        User.create({
-            username:req.body.username,
-            email:req.body.email,
-            password:bcrypt.hash(req.body.password,10)
-        })
-        .then(user=>{
-            if(req.body.roles){
-                Role.findAll({
-                    where:{
-                        name:{
-                            [Op.or]:req.body.roles
-                        }
-                    }
-                }).then(roles=>{
-                    user.setRoles(roles).then(()=>{
-                        res.send({message:"User was registered successfully!"})
-                    });
-                });
-            }else{
-                user.setRoles([1]).then(()=>{
-                    res.send({message:"User was registered successfully!"});
-                });
+exports.signup = (req, res) => {
+  // Save User to Database
+  User.create({
+    username: req.body.username,
+    email: req.body.email,
+    password: bcrypt.hashSync(req.body.password, 8)
+  })
+    .then(user => {
+      if (req.body.roles) {
+        Role.findAll({
+          where: {
+            name: {
+              [Op.or]: req.body.roles
             }
-        })
-        .catch(err=>{
-            res.status(500).send({ message: err.message });
+          }
+        }).then(roles => {
+          user.setRoles(roles).then(() => {
+            res.send({ message: "User was registered successfully!" });
+          });
         });
-        
+      } else {
+        // user role = 1
+        user.setRoles([1]).then(() => {
+          res.send({ message: "User was registered successfully!" });
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
 };
 
 exports.login=(req,res)=>{

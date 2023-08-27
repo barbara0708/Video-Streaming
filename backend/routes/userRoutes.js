@@ -6,10 +6,11 @@ const router=require("express").Router()
 
     router.post("/api/auth/signup",function(req,res){
         
-      //verifySignUp.checkDuplicateUsernameOrEmail
-      //verifySignUp.checkRolesExisted  
-      controller.signup
-    
+       verifySignUp.checkDuplicateUsernameOrEmail
+       verifySignUp.checkRolesExisted  
+       controller.signup
+       console.log(req.body)
+        res.json(req.body)
     }
     );
     router.post("/api/auth/login",function(req,res){controller.login});
