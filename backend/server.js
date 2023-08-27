@@ -24,8 +24,8 @@ const app=express()
 app.use(express.urlencoded({extended:true}))
 //app.use(cookieParser())
 
-app.use("/",router)
-
+//app.use("/",router)
+require('./routes/userRoutes')(app)
 db.sequelize.sync({force:true}).then(()=>{
     console.log('db has been re sync')
     init();
