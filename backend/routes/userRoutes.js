@@ -1,7 +1,6 @@
 const {verifySignUp}=require("../middlewares/index")
 const {authJwt}=require("../middlewares/index");
 const controller=require("../controllers/authControllers");
-const router=require("express").Router()
 
 module.exports = function(app) {
     app.use(function(req, res, next) {
@@ -14,32 +13,38 @@ module.exports = function(app) {
   
     app.post(
       "/api/auth/signup",
-      [
+      (req,res)=>{
         verifySignUp.checkDuplicateUsernameOrEmail,
         verifySignUp.checkRolesExisted
-      ],
-      controller.signup
+        controller.signup
+      }
     );
   
-    app.post("/api/auth/signin", controller.signin);
-    app.get("/api/test/all", controller.allAccess);
+    app.post("/api/auth/signin",(req,res)=>{ controller.signin});
+    app.get("/api/test/all", (req,res)=>{controller.allAccess});
 
   app.get(
     "/api/test/user",
-    [authJwt.verifyToken],
+    (req,res)=>{
+    authJwt.verifyToken,
     controller.userBoard
+    }
   );
 
   app.get(
     "/api/test/mod",
-    [authJwt.verifyToken, authJwt.isModerator],
+    (req,res)=>{
+        authJwt.verifyToken, authJwt.isModerator,
     controller.moderatorBoard
-  );
+    }
+    );
 
   app.get(
     "/api/test/admin",
-    [authJwt.verifyToken, authJwt.isAdmin],
+    (req,res)=>{
+    authJwt.verifyToken, authJwt.isAdmin,
     controller.adminBoard
+    }
   );
   };
     
