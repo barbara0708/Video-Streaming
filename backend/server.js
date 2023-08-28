@@ -8,10 +8,10 @@ const PORT=8080
 const Role=db.role
 
 const app=express()
+
 app.use(cors());
 app.use(express.urlencoded({extended:true}))
-
-require('./routes/userRoutes')(app)
+app.use('/',router)
 
 db.sequelize.sync({force:true}).then(()=>{
     console.log('db has been re sync')
@@ -33,4 +33,4 @@ function init(){
     });
 }
 
-app.listen(PORT,()=>console.log(`Parser is available on ${PORT}`))
+app.listen(PORT,()=>{console.log(`Parser is available on ${PORT}`)})

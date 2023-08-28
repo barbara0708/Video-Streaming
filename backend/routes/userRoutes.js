@@ -1,29 +1,21 @@
 const {verifySignUp}=require("../middlewares/index")
 const {authJwt}=require("../middlewares/index");
-const controller=require("../controllers/authControllers");
+const {login,signup}=require("../controllers/userControllers");
+const router=require("express").Router()
+const {allAccess,userBoard,adminBoard,moderatorBoard}=require("../controllers/authControllers")
 
-module.exports = function(app) {
-    app.use(function(req, res, next) {
-      res.header(
-        "Access-Control-Allow-Headers",
-        "x-access-token, Origin, Content-Type, Accept"
-      );
-      next();
-    });
-  
-    app.post(
+    router.post(
       "/api/auth/signup",
-      (req,res)=>{
-        verifySignUp.checkDuplicateUsernameOrEmail,
-        verifySignUp.checkRolesExisted
-        controller.signup
-      }
+      [verifySignUp.checkDuplicateUsernameOrEmail,
+        verifySignUp.checkRolesExisted],
+      signup
+      
     );
   
-    app.post("/api/auth/signin",(req,res)=>{ controller.signin});
-    app.get("/api/test/all", (req,res)=>{controller.allAccess});
+    router.post("/api/auth/signin",login);
+    router.get("/api/test/all", (req,res)=>{controller.allAccess});
 
-  app.get(
+  router.get(
     "/api/test/user",
     (req,res)=>{
     authJwt.verifyToken,
@@ -31,7 +23,7 @@ module.exports = function(app) {
     }
   );
 
-  app.get(
+  router.get(
     "/api/test/mod",
     (req,res)=>{
         authJwt.verifyToken, authJwt.isModerator,
@@ -39,12 +31,12 @@ module.exports = function(app) {
     }
     );
 
-  app.get(
+  router.get(
     "/api/test/admin",
     (req,res)=>{
     authJwt.verifyToken, authJwt.isAdmin,
     controller.adminBoard
     }
   );
-  };
-    
+
+module.exports=router;

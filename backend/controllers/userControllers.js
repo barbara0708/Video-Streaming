@@ -5,7 +5,7 @@ const Role = db.role;
 const Op = db.Sequelize.Op;
 
 var jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
+var bcrypt = require("bcrypt");
 
 exports.signup = (req, res) => {
   // Save User to Database
@@ -85,6 +85,5 @@ exports.login=(req,res)=>{
     })
     .catch(err=>{
         res.status(500).send({ message: err.message });
-    })
-           
+    })           
 }
