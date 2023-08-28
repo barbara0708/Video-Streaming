@@ -12,25 +12,25 @@ const {allAccess,userBoard,adminBoard,moderatorBoard}=require("../controllers/au
       
     );
   
-  router.post("/api/auth/signin",login);
+  router.post("/api/auth/login",login);
   router.get("/api/test/all", allAccess);
 
   router.get(
     "/api/test/user",
     [authJwt.verifyToken],
-    controller.userBoard
+    userBoard
   );
 
   router.get(
     "/api/test/mod",
     [authJwt.verifyToken, authJwt.isModerator],
-    controller.moderatorBoard
+    moderatorBoard
     );
 
   router.get(
     "/api/test/admin",
     [authJwt.verifyToken, authJwt.isAdmin],
-    controller.adminBoard
+    adminBoard
   );
 
 module.exports=router;
