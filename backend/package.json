@@ -7,6 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build":"cd client && npm start && npm run build"
   },
+  "engines": {
+    "node": "18.12.0"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
