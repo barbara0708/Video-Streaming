@@ -14,7 +14,9 @@ const {allAccess,userBoard,adminBoard,moderatorBoard}=require("../controllers/au
   
   router.post("/api/auth/login",login);
   router.get("/api/test/all", allAccess);
-
+  router.get("/api",(req,res)=>{
+    res.json({message:"Welcome to the Video-Streaming Platform"})
+  })
   router.get(
     "/api/test/user",
     [authJwt.verifyToken],
