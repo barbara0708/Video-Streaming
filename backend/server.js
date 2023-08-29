@@ -1,16 +1,13 @@
 const express=require('express')
 const cors=require('cors')
 const dotenv=require('dotenv').config()
-const sequelize=require('sequelize')
 const db=require('./models')
 const router=require('./routes/userRoutes')
-const PORT=8080
+const PORT=process.env.PORT||8080
 const Role=db.role
 
 const app=express()
-
 app.use(cors());
-
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 app.use('/',router)
