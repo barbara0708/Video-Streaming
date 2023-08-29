@@ -1,4 +1,5 @@
 const express=require('express')
+const path=require("path")
 const cors=require('cors')
 const dotenv=require('dotenv').config()
 const db=require('./models')
@@ -11,7 +12,7 @@ app.use(cors());
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 app.use('/',router)
-app.use(express.static(__dirname,"../client/build"))
+app.use(express.static(path.resolve(__dirname,"../client/build")))
 
 db.sequelize.sync({force:true}).then(()=>{
     console.log('db has been re sync')
