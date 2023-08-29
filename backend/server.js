@@ -7,6 +7,7 @@ const PORT=process.env.PORT||8080
 const Role=db.role
 
 const app=express()
+app.use(express.static(__dirname,"../client/build"))
 app.use(cors());
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
