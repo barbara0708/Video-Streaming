@@ -16,7 +16,7 @@ const {allAccess,userBoard,adminBoard,moderatorBoard}=require("../controllers/au
   router.post("/api/auth/login",login);
 
   router.get("*",(req,res)=>{
-    res.sendfile(path.resolve(__dirname,"../client/build",'index.html'))
+    res.sendFile(path.resolve(__dirname,"../client/build",'index.html'))
   })
   router.get("/api/test/all", allAccess);
   router.get("/api",(req,res)=>{
