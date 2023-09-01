@@ -2,15 +2,15 @@ import 'bootstrap/dist/css/bootstrap.css';
 import React, { Component } from "react";
 import {Route, Routes, Link } from "react-router-dom";
 import './App.css';
-import authService from '../services/auth.service';
+import authService from './services/auth.service';
 
-import BoardAdmin from '../components/board-admin.component';
-import HomeComponent from '../components/home.component';
-import BoardUser from '../components/board-user.component';
-import BoardModerator from '../components/board-moderator.component';
-import Profile from '../components/profile.component';
-import loginComponent from '../components/login.component';
-import Register from '../components/registration.component';
+import BoardAdmin from "./components/board-admin.component";
+import HomeComponent from './components/home.component';
+import BoardUser from './components/board-user.component';
+import BoardModerator from './components/board-moderator.component';
+import Profile from './components/profile.component';
+import Login from './components/login.component';
+import Register from './components/registration.component';
 
 class App extends Component {
   constructor(props){
@@ -115,7 +115,7 @@ class App extends Component {
           <Routes>
             <Route path="/" element={<HomeComponent />} />
             <Route path="/home" element={<HomeComponent />} />
-            <Route path="/login" element={<loginComponent />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/user" element={<BoardUser />} />
