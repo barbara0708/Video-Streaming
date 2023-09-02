@@ -28,9 +28,9 @@ export default class BoardUser extends Component{
     }
     render(){
         return(
-            <div class="container">
-                <header class="jumbotron">
-               <h3>{this.state.content}</h3>
+            <div className="container">
+                <header className="jumbotron">
+               <h3>{JSON.stringify(this.state.content)}</h3>
                </header> 
             </div>
             

@@ -28,8 +28,8 @@ class App extends Component {
     if(currentUser){
       this.setState({
         currentUser:currentUser,
-        showAdminBoard:currentUser.roles.includes("admin"),
-        showModeratorBoard:currentUser.roles.includes("moderator")
+        showAdminBoard:currentUser.roles.includes("ROLE_ADMIN"),
+        showModeratorBoard:currentUser.roles.includes("ROLE_MODERATOR")
       });
     }
   }
