@@ -33,7 +33,7 @@ export default class HomeComponent extends Component {
     return (
       <div className="container">
         <header className="jumbotron">
-          <h3>{this.state.content}</h3>
+          <h3>{JSON.stringify(this.state.content)}</h3>
         </header>
       </div>
     );
