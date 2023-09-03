@@ -36,9 +36,6 @@ export default class HomeComponent extends Component {
           <h1>Upload your video here!</h1>
         </header>
         <div className="flex">
-          <video className="h-50" muted controls playsInline loop src="./display-video">
-
-          </video>
         </div>
       </div>
     );
