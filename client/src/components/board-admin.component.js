@@ -30,7 +30,13 @@ export default class BoardAdmin extends Component{
         return(
             <div class="container">
                 <header class="jumbotron">
-               <h3>{JSON.stringify(this.state.content)}</h3>
+               <h3>Upload a new video!</h3>
+                <div className="flex h-50 w-80">
+                <video className="h-50" muted controls playsInline loop src="./display-video"></video>
+                </div>
+                <div className="flex">
+                    
+                </div>
                </header> 
             </div>
             
