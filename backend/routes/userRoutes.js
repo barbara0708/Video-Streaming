@@ -36,5 +36,10 @@ const {allAccess,userBoard,adminBoard,moderatorBoard}=require("../controllers/au
     [authJwt.verifyToken, authJwt.isAdmin],
     adminBoard
   );
+  router.get("/display-video",(req,res)=>{
+    
+    res.setHeader("content-type", "video/mp4");
+    
+  })
 
 module.exports=router;

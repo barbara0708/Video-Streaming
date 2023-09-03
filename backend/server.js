@@ -3,8 +3,11 @@ const path=require("path")
 const cors=require('cors')
 const dotenv=require('dotenv').config()
 const db=require('./models')
+const fs=require('fs')
 const router=require('./routes/userRoutes')
-const { defaults } = require('pg')
+const filePath='./videos/SampleVideo_1280x720_1mb.mp4'
+
+
 const PORT=process.env.PORT||8080
 const Role=db.role
 

@@ -30,7 +30,7 @@ export default class BoardModerator extends Component{
         return(
             <div class="container">
                 <header class="jumbotron">
-               <h3>{this.state.content}</h3>
+               <h3>{JSON.stringify(this.state.content)}</h3>
                </header> 
             </div>
             

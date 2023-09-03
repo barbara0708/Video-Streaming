@@ -33,8 +33,13 @@ export default class HomeComponent extends Component {
     return (
       <div className="container">
         <header className="jumbotron">
-          <h3>{JSON.stringify(this.state.content)}</h3>
+          <h1>Upload your video here!</h1>
         </header>
+        <div className="flex">
+          <video className="h-50" muted controls playsInline loop src="./display-video">
+
+          </video>
+        </div>
       </div>
     );
   }
