@@ -45,9 +45,9 @@ class App extends Component {
     const {showModeratorBoard, showAdminBoard, currentUser}=this.state
   return (
 <div>
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
+        <nav className="navbar navbar-expand navbar-dark bg-dark p-4">
           <Link to={"/"} className="navbar-brand">
-            bezKoder
+            VideoPlayer
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
