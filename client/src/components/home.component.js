@@ -59,7 +59,7 @@ export default function HomeComponent() {
           <h1>Upload your video here!</h1>
         </header>
         <div className="flex">
-          {uploadToken &&<UploadButton uploadToken={uploadToken}>Click me to upload a video!</UploadButton>}
+          <UploadButton >Click me to upload a video!</UploadButton>
         </div>
       </div>
     );
