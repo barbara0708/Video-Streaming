@@ -9,7 +9,7 @@ export default function HomeComponent() {
     const instantiateUploadToken = async () => {
       // Retrieve your upload tokens list
       const list = await fetch(
-        `${process.env.NEXT_PUBLIC_HOST}/api/uploadTokens`,
+        '/api/uploadTokens',
         {
           method: 'GET',
         }
@@ -24,7 +24,7 @@ export default function HomeComponent() {
     
       // If we do not have any upload token available, we create one
       const newUploadToken = await fetch(
-        `${process.env.NEXT_PUBLIC_HOST}/api/uploadTokens`,
+        '/api/uploadTokens',
         {
           method: 'POST',
         }

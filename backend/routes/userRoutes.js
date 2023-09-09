@@ -4,10 +4,14 @@ const {authJwt}=require("../middlewares/index");
 const {login,signup}=require("../controllers/userControllers");
 const router=require("express").Router()
 const {allAccess,userBoard,adminBoard,moderatorBoard}=require("../controllers/authControllers")
-
+const {handle}=require('../models/uploadTokens')
+const ApiVideoClient=require('@api.video/nodejs-client')
 const filePath='./videos/SampleVideo_1280x720_1mb.mp4'
 const fs=require('fs')
 
+const client=new ApiVideoClient({
+  apiKey:process.env.API_KEY
+})
     router.post(
       "/api/auth/signup",
       [verifySignUp.checkDuplicateUsernameOrEmail,
@@ -17,6 +21,14 @@ const fs=require('fs')
     );
   
   router.post("/api/auth/login",login);
+  router.post("/api/uploadTokens",(req,res)=>{
+    const newUploadToken =client.uploadTokens.createToken()
+    res.status(200).json({ newUploadToken })
+  })
+  router.get("/api/uploadTokens",(req,res)=>{
+    const uploadTokenList= client.uploadTokens.list();
+    res.status(200).json({uploadTokenList});
+  })
 
   router.get("/api/test/all", allAccess);
   router.get("/api",(req,res)=>{
