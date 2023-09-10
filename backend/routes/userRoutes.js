@@ -28,8 +28,8 @@ const client=new ApiVideoClient({
   })
   router.get("/api/uploadTokens",(req,res)=>{
     const uploadTokenList= client.uploadTokens.list();
-    console.log(newUploadToken)
-    res.status(200).json({uploadTokenList});
+    //res.status(200).json({uploadTokenList});
+    res.status(200).json({token:process.env.API_KEY })
   })
 
   router.get("/api/test/all", allAccess);
